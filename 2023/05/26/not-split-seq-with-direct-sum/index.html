@@ -23,7 +23,62 @@
   <!-- import head_begin begin -->
   <!-- import head_begin end -->
   <!-- Custom Files headBegin begin-->
-  
+  <script>
+    /////////////////////////////// serviceWorker ///////////////////////////////////////////
+    function registerServiceWorker(path) {
+      if (window.location.hostname != "localhost") {
+        "serviceWorker" in navigator && navigator.serviceWorker.register(`${path}?time=${new Date().getTime()}`).then(function (n) {
+          n.onupdatefound = function () {
+            var e = n.installing;
+            e.onstatechange = function () {
+              switch (e.state) {
+                case "installed":
+                  navigator.serviceWorker.controller ?
+                    console.log("Updated Service Worker.") :
+                    console.log("Service Worker Sucess!");
+                  break;
+                case "redundant":
+                  console.log("The installing service worker became redundant.")
+              }
+            }
+          }
+        }).catch(function (e) {
+          console.error("Error during service worker registration:", e)
+          if (typeof swinstallretry === 'undefined') {
+            swinstallretry = 1;
+            registerServiceWorker(`/volantis-sw.js`)
+          }
+        });
+      }
+    }
+    registerServiceWorker(`/volantis-sw.js`)
+    //////////////////////////////////////////////////////////////////////////
+    //// unregister serviceWorker
+    // if ('serviceWorker' in navigator) {
+    //   navigator.serviceWorker.ready.then(registration => {
+    //     registration.unregister();
+    //   });
+    // }
+    //////////////////////////////////////////////////////////////////////////
+  </script>
+  <style>
+    .katex-display {
+  min-height: 100%;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.katex-display > .katex{
+  margin: 5px 0 0 0
+}
+@media (max-aspect-ratio: 2400/1850) {
+  .katex-display::-webkit-scrollbar {
+    display: none; /*在移动端不显示横向滚动条*/
+  }
+}
+  </style>
+  <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+  <script src="https://tikzjax.com/v1/tikzjax.js"></script>
   <!-- Custom Files headBegin end-->
   <!-- front-matter head_begin begin -->
   <!-- front-matter head_begin end -->
@@ -46,7 +101,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/android-chrome-192x192.png">
 <meta property="article:published_time" content="2023-05-26T13:17:45.000Z">
-<meta property="article:modified_time" content="2023-05-26T15:42:05.195Z">
+<meta property="article:modified_time" content="2023-06-05T04:38:49.077Z">
 <meta property="article:author" content="assjock">
 <meta property="article:tag" content="Homological Algebra">
 <meta property="article:tag" content="Module">
@@ -1896,6 +1951,19 @@ ul.list-v >li>a:hover {
     background: var(--color-site-bg) !important;
   }
 }
+article hr {
+  background-image: none;
+  height: 2em;
+  border: none;
+  margin: 1em 0 1em;
+  text-align: center;
+}
+article hr:after {
+  content: "···";
+  letter-spacing: 2em;
+  padding-left: 2em;
+  font-weight: 700;
+}
 
   </style>
   <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
@@ -1979,7 +2047,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: false,
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1685119381526),
+    lastupdate: new Date(1685953461108),
     sidebar: {
       for_page: ["blogger","post","guide","lastupdate","category","tagcloud","webinfo"],
       for_post: ["toc"],
@@ -1989,7 +2057,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           friendlyShow: true
         },
         runtime: {
-          data: "2022/05/17",
+          data: "2023/05/25",
           unit: ""
         }
       }
@@ -3178,10 +3246,10 @@ onto that subgroup, meaning <span class="katex"><span class="katex-mathml"><math
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-05-26T23:42:05+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2023-06-05T12:38:49+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>Last update May 26, 2023</p>
+    <p>Last update Jun 5, 2023</p>
   </a>
 </div>
 
@@ -3278,6 +3346,15 @@ onto that subgroup, meaning <span class="katex"><span class="katex-mathml"><math
 
   
     <div class="prev-next">
+      
+        <a class='prev' href='/2023/06/05/chain-complex/'>
+          <p class='title'><i class="fa-solid fa-chevron-left" aria-hidden="true"></i>Chain Complex</p>
+          <p class='content'>Homological algebra初步的初步. Chain complex的定义以及一些性质.
+再没有tikz-cd我要死了.
+
+ Chain Complex
+Definition 1. A...</p>
+        </a>
       
       
         <a class='next' href='/2023/05/25/embedding-pdf/'>
@@ -4392,7 +4469,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 
 
   <script>
-  let imgs = ["https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/035.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/033.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/054.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/038.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/001.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/016.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/025.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/042.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/005.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/019.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/034.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/056.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/003.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/002.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/006.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/012.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/004.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/052.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/039.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/046.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/051.webp"];
+  let imgs = ["https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/003.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/056.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/004.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/038.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/019.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/054.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/042.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/012.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/002.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/001.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/046.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/033.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/051.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/006.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/016.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/052.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/025.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/034.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/035.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/005.webp","https://unpkg.com/volantis-static@0.0.1654736714924/media/wallpaper/minimalist/2020/039.webp"];
   let index = 0;
   let IntervalParallax = null;
 
@@ -4726,7 +4803,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Fish Touching","url":"http://example.com/","logo":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"assjock","image":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"Nonsense"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"Fish Touching"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/Mamamiya/","name":"Mamamiya"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/Homological-Algebra/","name":"Homological Algebra"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2023/05/26/not-split-seq-with-direct-sum/","name":"An example of direct sum but not split exact sequence"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Fish Touching","url":"http://example.com/","keywords":"Nothing at all:)","description":"Nonsense","author":{"@type":"Person","name":"assjock","image":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png"},"url":"http://example.com/","description":"Nonsense"},"publisher":{"@type":"Organization","name":"Fish Touching","url":"http://example.com/","logo":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"An example of direct sum but not split exact sequence","description":"一个含有direct sum的short exact sequence但不是split short exact sequence的例子.","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/05/26/not-split-seq-with-direct-sum/"},"author":{"@type":"Person","name":"assjock","image":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"Fish Touching","logo":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2023/05/26/not-split-seq-with-direct-sum/","wordCount":68,"datePublished":"2023-05-26T13:17:45.000Z","dateModified":"2023-05-26T15:42:05.195Z","articleSection":"Mamamiya","keywords":"Homological Algebra,Module","image":{"@type":"ImageObject","url":"https://gcore.jsdelivr.net/gh/assjock/Image/not-split-seq-with-direct-sum_headimg.jpg","width":1024,"height":768}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"Fish Touching","url":"http://example.com/","logo":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"assjock","image":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"Nonsense"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"Fish Touching"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/Mamamiya/","name":"Mamamiya"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/Homological-Algebra/","name":"Homological Algebra"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2023/05/26/not-split-seq-with-direct-sum/","name":"An example of direct sum but not split exact sequence"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"Fish Touching","url":"http://example.com/","keywords":"Nothing at all:)","description":"Nonsense","author":{"@type":"Person","name":"assjock","image":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png"},"url":"http://example.com/","description":"Nonsense"},"publisher":{"@type":"Organization","name":"Fish Touching","url":"http://example.com/","logo":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"An example of direct sum but not split exact sequence","description":"一个含有direct sum的short exact sequence但不是split short exact sequence的例子.","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2023/05/26/not-split-seq-with-direct-sum/"},"author":{"@type":"Person","name":"assjock","image":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"Fish Touching","logo":{"@type":"ImageObject","url":"/img/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2023/05/26/not-split-seq-with-direct-sum/","wordCount":68,"datePublished":"2023-05-26T13:17:45.000Z","dateModified":"2023-06-05T04:38:49.077Z","articleSection":"Mamamiya","keywords":"Homological Algebra,Module","image":{"@type":"ImageObject","url":"https://gcore.jsdelivr.net/gh/assjock/Image/not-split-seq-with-direct-sum_headimg.jpg","width":1024,"height":768}}]</script>
 
 
 
@@ -4808,7 +4885,30 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
     <!-- import body_end begin-->
     <!-- import body_end end-->
     <!-- Custom Files bodyEnd begin-->
-    
+    <script>
+    volantis.rightmenu.jump = (type) => {
+      const item = document.querySelector(type === 'prev' ? 'article .prev-next a.prev' : 'article .prev-next a.next');
+      if (!!item) {
+        if (typeof pjax !== 'undefined') {
+          pjax.loadUrl(item.href)
+        } else {
+          window.location.href = item.href;
+        }
+      }
+    }
+  
+    volantis.rightmenu.handle(() => {
+      const prev = document.querySelector('#prev').parentElement,
+        next = document.querySelector('#next').parentElement,
+        articlePrev = document.querySelector('article .prev-next a.prev p.title'),
+        articleNext = document.querySelector('article .prev-next a.next p.title');
+  
+      prev.style.display = articlePrev ? 'block' : 'none';
+      prev.title = articlePrev ? articlePrev.innerText : null;
+      next.style.display = articleNext ? 'block' : 'none';
+      next.title = articleNext ? articleNext.innerText : null;
+    }, 'prevNext', false)
+  </script>
     <!-- Custom Files bodyEnd end-->
     <!-- front-matter body_end begin -->
     <!-- front-matter body_end end -->
