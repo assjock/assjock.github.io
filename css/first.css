@@ -57,7 +57,7 @@ html {
   color: var(--color-text);
   width: 100%;
   height: 100%;
-  font-family: Dosis, UbuntuMono "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-family: texgyrepagella, Menlo, Monaco, monospace, sans-serif;
   font-size: 16px;
 }
 html >::-webkit-scrollbar {
@@ -1000,8 +1000,8 @@ button {
   }
 }
 @font-face {
-  font-family: 'UbuntuMono';
-  src: url("https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf");
+  font-family: 'texgyrepagella';
+  src: url("https://cdn.jsdelivr.net/gh/assjock/Image@main/tex-gyre-pagella/texgyrepagella-regular.otf");
   font-weight: 'normal';
   font-style: 'normal';
   font-display: swap;
@@ -1142,7 +1142,7 @@ button {
 }
 .l_header .nav-sub .title {
   font-weight: bold;
-  font-family: Dosis, UbuntuMono "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-family: texgyrepagella, Menlo, Monaco, monospace, sans-serif;
   line-height: 1.2;
   max-height: 64px;
   white-space: normal;
